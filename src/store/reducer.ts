@@ -1,21 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 type IntialState = {
-    list:string[]
-}
-type Payloadobj ={
-    task:string,
-    completed:boolean,
-    isEdit:boolean
+    list:{
+      task:string,
+      completed:boolean,
+      isEdit:boolean
+    }[]
 }
  const initialState : IntialState = {
-     list: []
+     list: localStorage['toDoList'] ?  JSON.parse(localStorage['toDoList']).toDoListArr : [],
  }
- const payloadobj : Payloadobj={
-    task:'',
-    completed:false,
-    isEdit:false
- }
+ 
 
 export const todolist = createSlice({
   
@@ -23,7 +18,7 @@ export const todolist = createSlice({
   initialState,
   reducers: {
     insertList: (state:any,action:PayloadAction<any>) => {
-      let json={
+      let json:any={
         toDoListArr:[]
       };
       if(localStorage['toDoList'] === undefined){
@@ -31,12 +26,17 @@ export const todolist = createSlice({
         console.log(localStorage['toDoList']);
       }
       json.toDoListArr = JSON.parse(localStorage['toDoList']).toDoListArr
-      payloadobj.task = action.payload
-       json.toDoListArr.push(payloadobj)
+      let payloadobject={
+        task: '',
+        completed: false,
+        isEdit: false
+      }
+      payloadobject.task = action.payload
+       json.toDoListArr.push(payloadobject)
        localStorage['toDoList'] = JSON.stringify(json);
         return {
           ...state,
-          list: [...state.list,payloadobj] 
+          list: [...state.list,payloadobject] 
          
         }
      },
@@ -45,7 +45,7 @@ export const todolist = createSlice({
         const copyArr = [...state.list];
         const payload = action.payload.list
         copyArr[idx] = payload;
-        let json={
+        let json:any={
           toDoListArr:[]
         };
         json.toDoListArr = JSON.parse(localStorage['toDoList']).toDoListArr
@@ -60,7 +60,7 @@ export const todolist = createSlice({
      deleteList:(state,action)=>{
        let localStr = JSON.parse(localStorage['toDoList']).toDoListArr;
        localStr.splice(action.payload,1);
-       let json={
+       let json:any={
         toDoListArr:localStr
        }
        console.log(json);
@@ -73,9 +73,6 @@ export const todolist = createSlice({
        
       }
      },
-    //  editProfile:(state,action)=>{
-    //     state.editProfileData = action.payload;
-    //  }
   },
 })
 

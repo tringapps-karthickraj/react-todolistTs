@@ -1,14 +1,16 @@
 import React,{useState}  from 'react';
 import {TextField,Button,Box} from '@mui/material';
+import { useAppDispatch } from '../store/hooks';
+
 // import { useDispatch } from 'react-redux';
-// import { insertList } from '../store/reducer';
+import { insertList } from '../store/reducer';
 
 export default function AddTask() {
-    const[task,setTask]=useState('');
-   // const dispatch = useDispatch();
+    const[task,setTask]=useState<string>('');
+    const dispatch = useAppDispatch();
     function onSubmit(event: { preventDefault: () => void; }){
       event.preventDefault();
-       // dispatch(insertList(task))
+        dispatch(insertList(task))
         setTask('');
         
       
