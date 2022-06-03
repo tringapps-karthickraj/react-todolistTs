@@ -1,7 +1,7 @@
 import React,{useState}  from 'react';
 import {TextField,Button,Box} from '@mui/material';
 import { useAppDispatch } from '../store/hooks';
-
+import '../assets/DisplayTask.css';
 // import { useDispatch } from 'react-redux';
 import { insertList } from '../store/reducer';
 
@@ -24,8 +24,9 @@ export default function AddTask() {
         maxWidth: '100%',
       }}
     >
-      <TextField required fullWidth label="Task" id="fullWidth" value={task} onChange={(event)=>setTask(event.target.value)} />
       <div>
+      <TextField required multiline label="Task" className='margintext' id="fullWidth" size="small" value={task} onChange={(event)=>setTask(event.target.value)} />
+      
       <Button type="submit" variant="contained">Add Task</Button>
 
       </div>

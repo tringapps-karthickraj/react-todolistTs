@@ -4,7 +4,7 @@ import DisplayTask from './components/DisplayTask';
 
 function App() {
   return (
-    <div>
+    <div className='App'>
       
       <DisplayTask/>
       <AddTask/>
